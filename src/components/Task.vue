@@ -1,6 +1,9 @@
 <template>
-    <div class="task">
-        <h3>{{ task.text }}</h3>
+    <!-- This is a JS ternary that will add the class of 'reminder' while also keeping the 'task' class if the condition is true-->
+    <div @dblclick="$emit('toggle-reminder', task.id)" :class="[task.reminder ? 'reminder' : '', 'task']">
+        <h3>{{ task.text }}
+          <i @click="$emit('delete-task', task.id)" class="fas fa-times"></i>
+        </h3>
         <p>
             {{ task.day }}
         </p>

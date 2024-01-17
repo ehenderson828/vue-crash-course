@@ -1,49 +1,39 @@
 <template>
   <div class="container">
-    <Header title="Task Tracker"></Header>
-    <Tasks :tasks="tasks"></Tasks>
+    <Header @toggle-add-task="toggleAddTask" title="Task Tracker" :showAddTask="showAddTask" />
+    <router-view :showAddTask="showAddTask"></router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
 
-import Header from './components/Header'
-import Tasks from './components/Tasks'
+  import Header from './components/Header'
+  import Footer from './components/Footer'
 
-export default {
-  name: 'App',
-  components: {
-    Header,
-    Tasks
-  },
-  data() {
-    return {
-      tasks: []
-    }
-  },
-  created() {
-    this.tasks = [
-      {
-        id: 1,
-        text: 'Doctors Appointment',
-        day: 'March 1st at 2:30PM',
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: 'Meeting at School',
-        day: 'March 13rd at 1:30PM',
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: 'Food Shopping',
-        day: 'March 3rd at 11:00AM',
-        reminder: false,
+  export default {
+    name: 'App',
+    // The only components listed here should be ones that you want on every page
+    components: {
+      Header,
+      Footer
+    },
+    data() {
+      return {
+        // 'showAddTask' is a boolean value that will help to toggle our AddTask component with our button. See 'v-if' above
+        showAddTask: false 
+        // false is the default until toggled
       }
-    ]
+    },
+    methods: {
+      // Function to toggle the AddTask component
+      toggleAddTask() {
+        //All we're doing here is asigning the opposite of the value of 'this.showAddTask' each time the event fires
+        this.showAddTask = !this.showAddTask
+      }
+    }
   }
-}
+
 </script>
 
 <style>

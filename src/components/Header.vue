@@ -1,7 +1,12 @@
 <template>
     <header>
         <h1>{{ title }}</h1>
-        <Button text="Add Task" color="green"></Button>
+        <Button 
+        v-show="homePage" 
+        @btn-click="$emit('toggle-add-task')" 
+        :text="showAddTask ? 'Close' : 'Add Task'" 
+        :color="showAddTask ? 'red' : 'green'" 
+        />
     </header>
 </template>
 
@@ -11,12 +16,21 @@
     export default {
         name: 'Header',
         props: {
-            title: {
-                type: String,
-            }
+            title: String,
+            showAddTask: Boolean // See where button is embedded above for conditional text and color
         },    
         components: {
             Button
+        },
+        computed: {
+            homePage() {
+                // '/' in this instance, refers to the current page
+                if(this.$route.path === '/') {
+                    return true
+                } else {
+                    return false
+                }
+            }
         }
     }
 </script>
